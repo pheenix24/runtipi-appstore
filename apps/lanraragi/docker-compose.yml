@@ -8,7 +8,6 @@ services:
       - PUID=1000
       - PGID=1000
       - TZ=${TZ}
-      - WEBUI_PORT=${APP_PORT}
     volumes:
       - ${APP_DATA_DIR}/database:/home/koyomi/lanraragi/database
       - ${APP_DATA_DIR}/lrr_content:/home/koyomi/lanraragi/content
