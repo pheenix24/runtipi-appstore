@@ -8,20 +8,21 @@ services:
       - PUID=1000
       - PGID=1000
       - TZ=${TZ}
+      - WEBUI_PORT=${APP_PORT}
     volumes:
       - ${APP_DATA_DIR}/database:/home/koyomi/lanraragi/database
       - ${APP_DATA_DIR}/lrr_content:/home/koyomi/lanraragi/content
       - ${APP_DATA_DIR}/thumb_cache:/home/koyomi/lanraragi/content/thumb
     ports:
-      - ${APP_PORT}:8986
+      - ${APP_PORT}:${APP_PORT}
     restart: unless-stopped
     networks:
       - tipi_main_network
     labels:
       # Main
       traefik.enable: true
-      traefik.http.middlewares.lanraragi-web-redirect.redirectscheme: http
-      traefik.http.services.lanraragi.loadbalancer.server.port: 8986
+      traefik.http.middlewares.lanraragi-web-redirect.redirectscheme: https
+      traefik.http.services.lanraragi.loadbalancer.server.port: ${APP_PORT}
       # Web
       traefik.http.routers.lanraragi-insecure.rule: Host(`${APP_DOMAIN}`)
       traefik.http.routers.lanraragi-insecure.entrypoints: web
