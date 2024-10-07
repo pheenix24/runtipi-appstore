@@ -4,7 +4,7 @@
   "available": true,
   "short_desc": "eechi manga & doujinshii",
   "author": "difegue",
-  "port": 3000,
+  "port": 8988,
   "categories": ["utilities", "media"],
   "description": "LANraragi manga library",
   "tipi_version": 1,
