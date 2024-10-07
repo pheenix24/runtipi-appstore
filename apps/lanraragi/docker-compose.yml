@@ -21,7 +21,7 @@ services:
     labels:
       # Main
       traefik.enable: true
-      traefik.http.middlewares.lanraragi-web-redirect.redirectscheme: https
+      traefik.http.middlewares.lanraragi-web-redirect.redirectscheme: http
       traefik.http.services.lanraragi.loadbalancer.server.port: 8986
       # Web
       traefik.http.routers.lanraragi-insecure.rule: Host(`${APP_DOMAIN}`)
