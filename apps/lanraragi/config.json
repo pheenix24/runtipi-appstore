@@ -1,0 +1,17 @@
+{
+  "name": "LANraragi Library Server",
+  "id": "lanraragi",
+  "available": true,
+  "short_desc": "eechi manga & doujinshii",
+  "author": "difegue",
+  "port": 3000,
+  "categories": ["utilities", "media"],
+  "description": "LANraragi manga library",
+  "tipi_version": 1,
+  "version": "0.9.21",
+  "source": "https://github.com/Difegue/LANraragi",
+  "exposable": true,
+  "supported_architectures": ["amd64"],
+  "created_at": 1724134338800,
+  "updated_at": 1724134338800
+}

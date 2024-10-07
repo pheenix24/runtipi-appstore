@@ -1,0 +1,48 @@
+services:
+  lanraragi:
+    image: difegue/lanraragi:latest
+    container_name: lanraragi
+    dns:
+      - ${DNS_IP}
+    environment:
+      - LRR_UID=1000
+      - LRR_GID=1000
+      - PUID=1000
+      - PGID=1000
+      - TZ=${TZ}
+      - WEBUI_PORT=${APP_PORT}
+    volumes:
+      - ${APP_DATA_DIR}/database:/home/koyomi/lanraragi/database
+      - ${APP_DATA_DIR}/lrr_content:/home/koyomi/lanraragi/content
+      - ${APP_DATA_DIR}/thumb_cache:/home/koyomi/lanraragi/content/thumb
+    ports:
+      - ${APP_PORT}:8986
+    restart: unless-stopped
+    networks:
+      - tipi_main_network
+    labels:
+      # Main
+      traefik.enable: true
+      traefik.http.middlewares.lanraragi-web-redirect.redirectscheme: https
+      traefik.http.services.lanraragi.loadbalancer.server.port: 3000
+      # Web
+      traefik.http.routers.lanraragi-insecure.rule: Host(`${APP_DOMAIN}`)
+      traefik.http.routers.lanraragi-insecure.entrypoints: web
+      traefik.http.routers.lanraragi-insecure.service: lanraragi
+      traefik.http.routers.lanraragi-insecure.middlewares: lanraragi-web-redirect
+      #Websecure
+      traefik.http.routers.lanraragi.rule: Host(`${APP_DOMAIN}`)
+      traefik.http.routers.lanraragi.entrypoints: websecure
+      traefik.http.routers.lanraragi.service: lanraragi
+      traefik.http.routers.lanraragi.tls.certresolver: myresolver
+      #Local Domain
+      traefik.http.routers.lanraragi-local-insecure.rule: Host(`lanraragi.${LOCAL_DOMAIN}`)
+      traefik.http.routers.lanraragi-local-insecure.entrypoints: web
+      traefik.http.routers.lanraragi-local-insecure.service: lanraragi
+      traefik.http.routers.lanraragi-local-insecure.middlewares: lanraragi-web-redirect
+      #Local Domain Secure
+      traefik.http.routers.lanraragi-local.rule: Host(`lanraragi.${LOCAL_DOMAIN}`)
+      traefik.http.routers.lanraragi-local.entrypoints: websecure
+      traefik.http.routers.lanraragi-local.service: lanraragi
+      traefik.http.routers.lanraragi-local.tls: true
+      runtipi.managed: true
