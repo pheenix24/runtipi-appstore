@@ -2,8 +2,6 @@ services:
   lanraragi:
     image: difegue/lanraragi:latest
     container_name: lanraragi
-    dns:
-      - ${DNS_IP}
     environment:
       - LRR_UID=1000
       - LRR_GID=1000
@@ -24,7 +22,7 @@ services:
       # Main
       traefik.enable: true
       traefik.http.middlewares.lanraragi-web-redirect.redirectscheme: https
-      traefik.http.services.lanraragi.loadbalancer.server.port: 3000
+      traefik.http.services.lanraragi.loadbalancer.server.port: 8986
       # Web
       traefik.http.routers.lanraragi-insecure.rule: Host(`${APP_DOMAIN}`)
       traefik.http.routers.lanraragi-insecure.entrypoints: web
