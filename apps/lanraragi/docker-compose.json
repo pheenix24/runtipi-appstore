@@ -1,0 +1,10 @@
+{
+  "services": [
+    {
+      "name": "lanraragi",
+      "image": "difegue/lanraragi:latest",
+      "internalPort": 3000,
+      "isMain": true
+    }
+  ]
+}
