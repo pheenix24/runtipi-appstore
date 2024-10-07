@@ -14,15 +14,15 @@ services:
       - ${APP_DATA_DIR}/lrr_content:/home/koyomi/lanraragi/content
       - ${APP_DATA_DIR}/thumb_cache:/home/koyomi/lanraragi/content/thumb
     ports:
-      - ${APP_PORT}:${APP_PORT}
+      - ${APP_PORT}:8988
     restart: unless-stopped
     networks:
       - tipi_main_network
     labels:
       # Main
       traefik.enable: true
-      traefik.http.middlewares.lanraragi-web-redirect.redirectscheme: http
-      traefik.http.services.lanraragi.loadbalancer.server.port: ${APP_PORT}
+      traefik.http.middlewares.lanraragi-web-redirect.redirectscheme: https
+      traefik.http.services.lanraragi.loadbalancer.server.port: 8988
       # Web
       traefik.http.routers.lanraragi-insecure.rule: Host(`${APP_DOMAIN}`)
       traefik.http.routers.lanraragi-insecure.entrypoints: web

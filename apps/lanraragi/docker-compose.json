@@ -4,7 +4,6 @@
       "name": "lanraragi",
       "image": "difegue/lanraragi:latest",
       "internalPort": 3000,
-      "isMain": true
       "environment": {
         "LRR_UID": "1000",
         "LRR_GID": "1000"
